@@ -5,6 +5,7 @@ import com.codestates.exception.ExceptionCode;
 import com.codestates.helper.email.EmailSender;
 import com.codestates.helper.event.MemberRegistrationApplicationEvent;
 import com.codestates.member.entity.Member;
+import com.codestates.member.repository.MemberRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,10 +26,10 @@ import java.util.Optional;
 @Transactional
 @Service
 public class MemberService {
-    private final com.codestates.member.repository.MemberService memberRepository;
+    private final MemberRepository memberRepository;
     private final ApplicationEventPublisher publisher;
 
-    public MemberService(com.codestates.member.repository.MemberService memberRepository,
+    public MemberService(MemberRepository memberRepository,
                          EmailSender emailSender, ApplicationEventPublisher publisher) {
         this.memberRepository = memberRepository;
         this.publisher = publisher;
