@@ -5,7 +5,6 @@ import com.codestates.exception.ExceptionCode;
 import com.codestates.helper.email.EmailSender;
 import com.codestates.helper.event.MemberRegistrationApplicationEvent;
 import com.codestates.member.entity.Member;
-import com.codestates.member.repository.MemberRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,10 +25,10 @@ import java.util.Optional;
 @Transactional
 @Service
 public class MemberService {
-    private final MemberRepository memberRepository;
+    private final com.codestates.member.repository.MemberService memberRepository;
     private final ApplicationEventPublisher publisher;
 
-    public MemberService(MemberRepository memberRepository,
+    public MemberService(com.codestates.member.repository.MemberService memberRepository,
                          EmailSender emailSender, ApplicationEventPublisher publisher) {
         this.memberRepository = memberRepository;
         this.publisher = publisher;
@@ -85,9 +84,10 @@ public class MemberService {
         return findMember;
     }
 
-    private void verifyExistsEmail(String email) {
+    public void verifyExistsEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
+
 }
