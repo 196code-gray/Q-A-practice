@@ -1,5 +1,6 @@
 package com.codestates.member.entity;
 
+import com.codestates.QA.entity.Bord;
 import com.codestates.audit.Auditable;
 import com.codestates.order.entity.Order;
 import com.codestates.stamp.Stamp;
@@ -39,6 +40,9 @@ public class Member extends Auditable {
     // 수정된 부분
     @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Stamp stamp;
+
+//    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+//    private List<Bord> bords = new ArrayList<>();
 
     public Member(String email) {
         this.email = email;

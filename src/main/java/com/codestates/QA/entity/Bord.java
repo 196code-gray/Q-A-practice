@@ -25,7 +25,7 @@ public class Bord extends Auditable {
     private String detail;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_EMAIL")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @Enumerated(value = EnumType.STRING)

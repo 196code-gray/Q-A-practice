@@ -90,5 +90,12 @@ public class MemberService {
         if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
+    @Transactional(readOnly = true)
+    public Member findVerifiedMemberEmail(String email) {
+        Optional<Member> optionalMemberEmail = memberRepository.findByEmail(email);
+        Member findMemberEmail = optionalMemberEmail.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMemberEmail;
+    }
 
 }
