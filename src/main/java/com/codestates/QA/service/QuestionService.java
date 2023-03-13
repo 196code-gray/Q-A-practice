@@ -4,6 +4,7 @@ import com.codestates.QA.entity.Bord;
 import com.codestates.QA.repository.QuestionRepository;
 import com.codestates.exception.BusinessLogicException;
 import com.codestates.exception.ExceptionCode;
+import com.codestates.member.entity.Member;
 import com.codestates.member.service.MemberService;
 import org.springframework.stereotype.Service;
 
@@ -20,23 +21,26 @@ public class QuestionService {
     }
 
     public Bord createdQuestion (Bord bord) {
-        memberService.findVerifiedMember(bord.getMember().getMemberId());
-
+        memberService.findVerifiedMemberandEmail(bord.getMember().getMemberId(), bord.getMember().getEmail());
         return questionRepository.save(bord);
     }
     public Bord updatedQuestion (Bord bord) {
         // 질문을 등록한 사람만 수정 가능. BordId에 있는 id와 memberid 비교
-        findVerifiedMemberQuestion(bord.getBordId());
+        findVerifiedMemberQuestion(bord.getBordId(), bord.getEmail());
 
         return null;
     }
-    public Bord findVerifiedMemberQuestion(long bordId) {
+    public Bord findVerifiedMemberQuestion(long bordId, String bordEmail) {
         Optional<Bord> optionalBord = questionRepository.findById(bordId);
-        Bord findBord = optionalBord.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
-        // 질문이 없습니다. 에러
-        // dto 에서 이메일 받고, 매핑하고.
+        Optional<Bord> optionalEmail = questionRepository.findByEmail(bordEmail);
 
-        // 회원이 등록한 글이 아닙니다 에러
+        Bord findBord = optionalBord.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        Bord findMember = optionalEmail.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_INFO_ERROR));
+
+        if (findBord.getEmail().equals(bordEmail)) {
+        }
+        else throw new BusinessLogicException(ExceptionCode.QUESTION_INFO_ERROR);
+
         return findBord;
     }
     // TODO : 여기 패치 구현.

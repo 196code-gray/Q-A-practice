@@ -41,8 +41,8 @@ public class Member extends Auditable {
     @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Stamp stamp;
 
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
-//    private List<Bord> bords = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<Bord> bords = new ArrayList<>();
 
     public Member(String email) {
         this.email = email;

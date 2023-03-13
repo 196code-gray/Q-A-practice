@@ -24,6 +24,9 @@ public class Bord extends Auditable {
     @Column(nullable = false)
     private String detail;
 
+    @Column(nullable = false)
+    private String email;
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;

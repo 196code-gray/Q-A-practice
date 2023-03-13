@@ -15,8 +15,9 @@ public interface QuestionMapper {
 
         Member member = new Member();
         member.setMemberId(questionPostDto.getMemberId());
-//        member.setEmail(questionPostDto.getMemberEmail());
+        member.setEmail(questionPostDto.getMemberEmail());
         bord.setMember(member);
+        bord.setEmail(questionPostDto.getMemberEmail());
 
         return bord;
     }

@@ -12,8 +12,8 @@ import javax.validation.constraints.Pattern;
 public class QuestionPatchDto {
     private long bordId;
 
-//    @NotBlank
-//    private String memberEmail;
+    @NotBlank
+    private String memberEmail;
 
     @Pattern(regexp = "^[a-zA-Z]*$",
     message = "PUBLIC(공개글)과 SECRET(비밀글) 중에 입력해주세요.")

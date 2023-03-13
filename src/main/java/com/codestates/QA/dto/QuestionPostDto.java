@@ -6,11 +6,12 @@ import javax.validation.constraints.*;
 
 @Getter
 public class QuestionPostDto {
-//    @NotBlank
-//    @Email
-//    private String memberEmail;
     @NotNull
     private long memberId;
+
+    @NotBlank
+    @Email
+    private String memberEmail;
 
     @NotBlank
     private String title;
